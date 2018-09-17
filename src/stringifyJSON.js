@@ -21,12 +21,14 @@ var stringifyJSON = function(obj) {
   }else if(typeof obj === 'string'){
     return '"' + obj + '"';
   }else if(typeof obj === 'object'){
-    if(Object.keys(obj) === undefined){
-      return '{}'
-    }else{
+    // if(Object.keys(obj) === undefined){
+    //   return '{}'
+    // }else{
       for(let key in obj){
-        result.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+        if(typeof key !== 'function' && typeof obj[key] !== 'function' && key !== undefined && obj[key] !== undefined){
+          result.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+        }      
       }
     return '{' + result.join(',') + '}';
-  }
+  } 
 };
